@@ -7,7 +7,7 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
+/*
 rl.question('С откуда брать Email? (MYSQL ИЛИ .TXT) ', (answer) => {
   var list_vid  = [
 	  			'MYSQL',
@@ -25,7 +25,7 @@ rl.question('С откуда брать Email? (MYSQL ИЛИ .TXT) ', (answer) =
   }
   	rl.close();
 });
-
+*/
 var connection = mysql.createPool({
     host     : '31.31.196.162',
     user     : 'u0476824_default',
@@ -37,6 +37,7 @@ connection.query('SET CHARACTER SET utf8');
 
 connection.query('select 1 + 1', (err, rows) => { /* */ });
 
+SEND_USE_EMAIL_MYSQL(0);
 
 async function GetEmailMysql(id){
 	var sel_info = "SELECT `meta_value` FROM `vp_postmeta` WHERE `meta_key` = 'email' LIMIT "+id+",5";
