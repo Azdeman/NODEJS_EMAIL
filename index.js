@@ -74,10 +74,11 @@ async function SendEmail(email){
 			      subject: "Не 10, не 20 и даже не 50...",
 			      html: file
 	    });
+	    console.log(result);
     });
    
     
-    console.log(result);
+    
 
 }
 
