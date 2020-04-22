@@ -27,9 +27,9 @@ rl.question('С откуда брать Email? (MYSQL ИЛИ .TXT) ', (answer) =
 });
 
 var connection = mysql.createPool({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
+    host     : '31.31.196.162',
+    user     : 'u0476824_default',
+    password : '6-ZP#g#0S7Nad26v%',
     database : 'u0476824_rabota_tut'
 });
 
@@ -54,25 +54,30 @@ async function GetEmailMysql(id){
 
 async function SendEmail(email){
     let testEmailAccount = await nodemailer.createTestAccount();
-    
+    var file = fs.readFileSync('message/body.html','utf8');
     let transporter = nodemailer.createTransport({
       host: 'mail.hosting.reg.ru',
       port: 587,
       secure: false,
       auth: {
-        user: 'rabota-test@mg.rabota-tut.site',
-        pass: 'q1w2e'
+        user: 'rabotatut@club.rabota-tut.site',
+        pass: 'rabotatut123'
       }
     });
     
-    let result = await transporter.sendMail({
-      from: '"Rabota-tut" <rabota-test@mg.rabota-tut.site>',
-      to: email,
-      subject: "Работа",
-      html: "<b>Работа</b>"
+    email.forEach(async (e)=>{
+    	let email = e['meta_value'];
+	    	 var result = await transporter.sendMail({
+			      from: '"Премиум размещение вакансий" <rabotatut@club.rabota-tut.site>',
+			      to: email,
+			      subject: "Не 10, не 20 и даже не 50...",
+			      html: file
+	    });
     });
+   
     
     console.log(result);
+
 }
 
 
@@ -81,7 +86,7 @@ async function SEND_USE_EMAIL_MYSQL(id){
 	var get_email  = await GetEmailMysql(id);
 		if(get_email.length > 0 ){
 			console.log("-=-=-НАЧИНАЮ ОТПРАВКУ-=-=-");
-				console.log(get_email);
+				await SendEmail(get_email);
 			console.log('-=-=-ОТПРАВЛЕНО-=-=-');
 			id+=5;
 				setTimeout(SEND_USE_EMAIL_MYSQL,5000,id)
